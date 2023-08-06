@@ -33,9 +33,7 @@ class LLMInputOutputAdapter {
     return inputBody;
   }
 
-  static prepareOutput(provider: string, response: any): string {
-    const responseBody = JSON.parse(response);
-
+  static prepareOutput(provider: string, responseBody: any): string {
     if (provider === "anthropic") {
       return responseBody.completion;
     } else if (provider === "ai21") {

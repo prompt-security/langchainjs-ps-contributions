@@ -61,8 +61,11 @@ export class Bedrock extends LLM implements BedrockInput {
     super(fields ?? {});
 
     this.model = fields?.model ?? this.model;
-    this.regionName = fields?.regionName ?? getEnvironmentVariable("AWS_DEFAULT_REGION");
-    this.credentialsProfileName = fields?.credentialsProfileName ?? getEnvironmentVariable("BEDROCK_CREDENTIALS_PROFILE_NAME");
+    this.regionName =
+      fields?.regionName ?? getEnvironmentVariable("AWS_DEFAULT_REGION");
+    this.credentialsProfileName =
+      fields?.credentialsProfileName ??
+      getEnvironmentVariable("BEDROCK_CREDENTIALS_PROFILE_NAME");
     this.temperature = fields?.temperature ?? this.temperature;
     this.maxTokens = fields?.maxTokens ?? this.maxTokens;
 
@@ -76,7 +79,7 @@ export class Bedrock extends LLM implements BedrockInput {
 
   /** @ignore */
   async _call(
-    prompt: string/* TODO:: remove or use?,
+    prompt: string /* TODO:: remove or use?,
     options: this["ParsedCallOptions"] */
   ): Promise<string> {
     const { createSignedFetcher } = await Bedrock.imports();
@@ -112,7 +115,8 @@ export class Bedrock extends LLM implements BedrockInput {
   }
 
   /** @ignore */
-  static async imports(): Promise<{ createSignedFetcher:any }> { // todo: Promise<typeof import("@huggingface/inference")>
+  static async imports(): Promise<{ createSignedFetcher: any }> {
+    // todo: Promise<typeof import("@huggingface/inference")>
     try {
       const { createSignedFetcher } = await import("aws-sigv4-fetch");
       return { createSignedFetcher };

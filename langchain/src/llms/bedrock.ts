@@ -77,8 +77,7 @@ export class Bedrock extends LLM implements BedrockInput {
   maxTokens?: number | undefined = undefined;
 
   get lc_secrets(): { [key: string]: string } | undefined {
-    return {
-    };
+    return {};
   }
 
   _llmType() {
@@ -126,18 +125,20 @@ export class Bedrock extends LLM implements BedrockInput {
       params
     );
 
+    // TODO: in python try/catch block starts here
     const response = await signedFetcher(url, {
       method: "post",
       body: JSON.stringify(inputBody),
       headers: {
         "Content-Type": "application/json",
-        accept: "*/*",
+        accept: "application/json",
       },
     });
 
     // TODO: handle errors? try/catch?
     const responseJson = await response.json();
     const text = LLMInputOutputAdapter.prepareOutput(provider, responseJson);
+    // TODO: in python, try block ends here and catch block raises ValueError(f"Error raised by bedrock service: {e}")
     return text;
   }
 

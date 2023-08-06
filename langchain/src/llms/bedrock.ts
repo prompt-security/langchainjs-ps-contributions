@@ -10,7 +10,11 @@ class LLMInputOutputAdapter {
   that LLM model expects. Also, provides a helper function to extract
   the generated text from the model response. */
 
-  static prepareInput(provider: string, prompt: string, modelKwargs: ModelKwargs): ModelKwargs {
+  static prepareInput(
+    provider: string,
+    prompt: string,
+    modelKwargs: ModelKwargs
+  ): ModelKwargs {
     const inputBody: ModelKwargs = { ...modelKwargs };
 
     if (provider === "anthropic" || provider === "ai21") {
@@ -37,7 +41,6 @@ class LLMInputOutputAdapter {
     } else if (provider === "ai21") {
       return responseBody.completions[0].data.text;
     }
-
     return responseBody.results[0].outputText;
   }
 }
@@ -127,9 +130,7 @@ export class Bedrock extends LLM implements BedrockInput {
     Example:
       response = model.call("Tell me a joke.")
   */
-  async _call(
-    prompt: string,
-  ): Promise<string> {
+  async _call(prompt: string): Promise<string> {
     const { createSignedFetcher } = await Bedrock.imports();
 
     const signedFetcher = createSignedFetcher({
@@ -143,7 +144,11 @@ export class Bedrock extends LLM implements BedrockInput {
     const provider = this.model.split(".")[0];
     // const params: ModelKwargs = { ...this._model_kwargs, ...kwargs };
     const params = {}; // TODO: pass kwargs params
-    const inputBody = LLMInputOutputAdapter.prepareInput(provider, prompt, params);
+    const inputBody = LLMInputOutputAdapter.prepareInput(
+      provider,
+      prompt,
+      params
+    );
 
     const response = await signedFetcher(url, {
       method: "post",

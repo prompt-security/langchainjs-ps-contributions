@@ -68,7 +68,7 @@ export interface BedrockInput /* TODO: extends BaseLLMParams */ {
 }
 
 export class Bedrock extends LLM implements BedrockInput {
-  model = "bedrock";
+  model = "amazon.titan-tg1-large";
 
   regionName?: string | undefined = undefined;
 

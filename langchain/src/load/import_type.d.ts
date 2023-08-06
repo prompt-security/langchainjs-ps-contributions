@@ -73,6 +73,9 @@ export interface OptionalImportMap {
   "langchain/llms/sagemaker_endpoint"?:
     | typeof import("../llms/sagemaker_endpoint.js")
     | Promise<typeof import("../llms/sagemaker_endpoint.js")>;
+  "langchain/llms/bedrock"?:
+    | typeof import("../llms/bedrock.js")
+    | Promise<typeof import("../llms/bedrock.js")>;
   "langchain/prompts/load"?:
     | typeof import("../prompts/load.js")
     | Promise<typeof import("../prompts/load.js")>;
@@ -321,6 +324,7 @@ export interface SecretMap {
   AZURE_OPENAI_API_KEY?: string;
   BAIDU_API_KEY?: string;
   BAIDU_SECRET_KEY?: string;
+  BEDROCK_CREDENTIALS_PROFILE_NAME?: string;
   COHERE_API_KEY?: string;
   DATABERRY_API_KEY?: string;
   GOOGLE_API_KEY?: string;

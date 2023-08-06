@@ -34,7 +34,7 @@ class LLMInputOutputAdapter {
   }
 
   static prepareOutput(provider: string, response: any): string {
-    const responseBody = JSON.parse(response.body);
+    const responseBody = JSON.parse(response);
 
     if (provider === "anthropic") {
       return responseBody.completion;
@@ -62,15 +62,6 @@ export interface BedrockInput /* TODO: extends BaseLLMParams */ {
   */
   regionName?: string;
 
-  /** The name of the profile in the ~/.aws/credentials or ~/.aws/config files.
-      The name must have either access keys or role information specified.
-      If not specified, the default credential profile or, if on an EC2 instance,
-      credentials from IMDS will be used.
-      Fallback to BEDROCK_CREDENTIALS_PROFILE_NAME env variable or region specified in ~/.aws/config in case it is not provided here.
-      See: https://boto3.amazonaws.com/v1/documentation/api/latest/guide/credentials.html
-  */
-  credentialsProfileName?: string;
-
   /** Temperature */
   temperature?: number;
 
@@ -83,15 +74,12 @@ export class Bedrock extends LLM implements BedrockInput {
 
   regionName?: string | undefined = undefined;
 
-  credentialsProfileName?: string | undefined = undefined;
-
   temperature?: number | undefined = undefined;
 
   maxTokens?: number | undefined = undefined;
 
   get lc_secrets(): { [key: string]: string } | undefined {
     return {
-      credentialsProfileName: "BEDROCK_CREDENTIALS_PROFILE_NAME",
     };
   }
 
@@ -105,18 +93,8 @@ export class Bedrock extends LLM implements BedrockInput {
     this.model = fields?.model ?? this.model;
     this.regionName =
       fields?.regionName ?? getEnvironmentVariable("AWS_DEFAULT_REGION");
-    this.credentialsProfileName =
-      fields?.credentialsProfileName ??
-      getEnvironmentVariable("BEDROCK_CREDENTIALS_PROFILE_NAME");
     this.temperature = fields?.temperature ?? this.temperature;
     this.maxTokens = fields?.maxTokens ?? this.maxTokens;
-
-    // Verify credentialsProfileName is configured
-    if (!this.credentialsProfileName) {
-      throw new Error(
-        "Please set a credentials profile name for Bedrock in the environment variable BEDROCK_CREDENTIALS_PROFILE_NAME or in the credentialsProfileName field of the Bedrock constructor."
-      );
-    }
   }
 
   /** Call out to Bedrock service model.

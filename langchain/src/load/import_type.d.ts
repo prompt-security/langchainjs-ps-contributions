@@ -324,7 +324,6 @@ export interface SecretMap {
   AZURE_OPENAI_API_KEY?: string;
   BAIDU_API_KEY?: string;
   BAIDU_SECRET_KEY?: string;
-  BEDROCK_CREDENTIALS_PROFILE_NAME?: string;
   COHERE_API_KEY?: string;
   DATABERRY_API_KEY?: string;
   GOOGLE_API_KEY?: string;

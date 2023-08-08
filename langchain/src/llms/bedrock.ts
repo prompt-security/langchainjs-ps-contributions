@@ -128,6 +128,13 @@ export class Bedrock extends LLM implements BedrockInput {
         })
     );
 
+    if (response.status < 200 || response.status >= 300) {
+      throw Error(
+        `Failed to access underlying url '${url}': got ${response.status} ${
+          response.statusText
+        }: ${await response.text()}`
+      );
+    }
     const responseJson = await response.json();
     const text = LLMInputOutputAdapter.prepareOutput(provider, responseJson);
     return text;

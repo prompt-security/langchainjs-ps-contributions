@@ -82,6 +82,12 @@ export class Bedrock extends LLM implements BedrockInput {
     super(fields ?? {});
 
     this.model = fields?.model ?? this.model;
+    const allowedModels = ["ai21", "anthropic", "amazon"];
+    if (!allowedModels.includes(this.model.split(".")[0])) {
+      throw new Error(
+        `Unknown model: '${this.model}', only these are supported: ${allowedModels}`
+      );
+    }
     this.regionName =
       fields?.regionName ?? getEnvironmentVariable("AWS_DEFAULT_REGION");
     this.temperature = fields?.temperature ?? this.temperature;
@@ -107,19 +113,20 @@ export class Bedrock extends LLM implements BedrockInput {
     });
 
     const url = `https://bedrock.${this.regionName}.amazonaws.com/model/${this.model}/invoke`;
-    console.log("url:", url);
-
     const provider = this.model.split(".")[0];
     const inputBody = LLMInputOutputAdapter.prepareInput(provider, prompt);
 
-    const response = await signedFetcher(url, {
-      method: "post",
-      body: JSON.stringify(inputBody),
-      headers: {
-        "Content-Type": "application/json",
-        accept: "application/json",
-      },
-    });
+    const response = await this.caller.call(
+      async () =>
+        await signedFetcher(url, {
+          method: "post",
+          body: JSON.stringify(inputBody),
+          headers: {
+            "Content-Type": "application/json",
+            accept: "application/json",
+          },
+        })
+    );
 
     const responseJson = await response.json();
     const text = LLMInputOutputAdapter.prepareOutput(provider, responseJson);

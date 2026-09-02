@@ -4406,10 +4406,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@faker-js/faker@npm:^7.6.0":
-  version: 7.6.0
-  resolution: "@faker-js/faker@npm:7.6.0"
-  checksum: 942af6221774e8c98a0eb6bc75265e05fb81a941170377666c3439aab9495dd321d6beedc5406f07e6ad44262b3e43c20961f666d116ad150b78e7437dd1bb2b
+"@faker-js/faker@npm:^10.5.0":
+  version: 10.5.0
+  resolution: "@faker-js/faker@npm:10.5.0"
+  checksum: 8f9beff2475ee57e83abd0a0e450c9587638c49d012e56fbf86e6a56bbcaef340eabd83d868b339c37163cea90e3aca33f585f3078f7126f90d7417ce903b5e7
   languageName: node
   linkType: hard
 
@@ -14211,7 +14211,7 @@ __metadata:
     "@azure/storage-blob": ^12.15.0
     "@clickhouse/client": ^0.0.14
     "@elastic/elasticsearch": ^8.4.0
-    "@faker-js/faker": ^7.6.0
+    "@faker-js/faker": ^10.5.0
     "@getmetal/metal-sdk": ^4.0.0
     "@getzep/zep-js": ^0.6.3
     "@gomomento/sdk": ^1.23.0

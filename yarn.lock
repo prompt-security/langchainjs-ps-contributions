@@ -11110,7 +11110,7 @@ __metadata:
     faiss-node: ^0.2.1
     graphql: ^16.6.0
     ioredis: ^5.3.2
-    js-yaml: ^4.1.0
+    js-yaml: ^4.3.2
     langchain: "workspace:*"
     ml-distance: ^4.0.0
     mongodb: ^5.2.0
@@ -13872,6 +13872,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"js-yaml@npm:^4.3.2":
+  version: 4.3.2
+  resolution: "js-yaml@npm:4.3.2"
+  dependencies:
+    argparse: ^2.0.1
+  bin:
+    js-yaml: bin/js-yaml.js
+  checksum: 3c9294448ed83fec340f017f2be056dab05bcba3fc742468a80275d264e982dfd94350a93640eb810e0fdf283bef7c1c810690cc69b7b04a187f781e079d2555
+  languageName: node
+  linkType: hard
+
 "js2xmlparser@npm:^4.0.2":
   version: 4.0.2
   resolution: "js2xmlparser@npm:4.0.2"
@@ -14282,7 +14293,7 @@ __metadata:
     ioredis: ^5.3.2
     jest: ^29.5.0
     js-tiktoken: ^1.0.7
-    js-yaml: ^4.1.0
+    js-yaml: ^4.3.2
     jsdom: ^22.1.0
     jsonpointer: ^5.0.1
     langsmith: ~0.0.16
